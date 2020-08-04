@@ -46,7 +46,14 @@ const testTour = new Tour({
   price: 497,
 });
 
-testTour.save().then();
+testTour
+  .save()
+  .then((doc) => {
+    console.log(doc);
+  })
+  .catch((err) => {
+    console.log('ERROR', err);
+  });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

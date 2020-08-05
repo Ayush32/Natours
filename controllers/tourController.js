@@ -3,6 +3,7 @@
  *   All rights reserved.
  */
 const Tour = require('./../models/tourModel');
+const { query } = require('express');
 
 // exports.checkId = (req, res, next, val) => {
 //   console.log(`Tour id is: ${val}`);
@@ -28,11 +29,17 @@ const Tour = require('./../models/tourModel');
 
 exports.getAllTours = async (req, res) => {
   try {
-    console.log(req.query);
-    const tours = await Tour.find({
-      duration: 5,
-      difficulty: 'easy',
-    });
+    // build the query
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    const query = await Tour.find(queryObj);
+
+    // execute the query
+    const tours = await query;
+    // send response
     console.log(req.requestTime);
     res.status(200).json({
       status: 'success',

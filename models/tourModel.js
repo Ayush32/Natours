@@ -105,7 +105,7 @@ tourSchema.virtual('durationWeeks').get(function () {
 
 // Query middleware
 
-tourSchema.pre('find', function (next) {
+tourSchema.pre('/^find/', function (next) {
   this.find({ secretTour: { $ne: true } });
   next();
 });

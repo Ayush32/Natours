@@ -2,8 +2,8 @@
  *   Copyright (c) 2020
  *   All rights reserved.
  */
-const Tour = require('./../models/tourModel');
 const { query } = require('express');
+const Tour = require('../models/tourModel');
 const APIFeatures = require('../utils/apiFeatures');
 
 // exports.checkId = (req, res, next, val) => {
@@ -144,7 +144,9 @@ exports.getTourStats = async (req, res) => {
       },
       {
         $group: {
-          _id: { $toUpper: '$difficulty' },
+          _id: {
+            $toUpper: '$difficulty',
+          },
           num: {
             $sum: 1,
           },
@@ -211,10 +213,13 @@ exports.getMonthlyPlan = async (req, res) => {
       {
         $group: {
           _id: {
-            $smooth: '$startDates',
-            numTourStarts: {
-              $num: 1,
-            },
+            $month: '$startDates',
+          },
+          numTourStarts: {
+            $sum: 1,
+          },
+          tours: {
+            $push: '$name',
           },
         },
       },

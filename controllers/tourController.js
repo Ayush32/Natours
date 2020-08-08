@@ -212,6 +212,9 @@ exports.getMonthlyPlan = async (req, res) => {
         $group: {
           _id: {
             $smooth: '$startDates',
+            numTourStarts: {
+              $num: 1,
+            },
           },
         },
       },

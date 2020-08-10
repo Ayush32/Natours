@@ -6,13 +6,17 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 
-const tourSchema = new mongoose.Schema(
-  {
+const tourSchema = new mongoose.Schema({
     name: {
       type: String,
       required: [true, 'A tour must have a price'],
       unique: true,
       trim: true,
+      maxlength: [
+        40,
+        'A tour name must have less or equal than 40 characters',
+      ],
+      minlength: [40, 'A tour name must have less or equal than 40 characters'],
     },
     slug: String,
 
@@ -106,7 +110,11 @@ tourSchema.virtual('durationWeeks').get(function () {
 // Query middleware
 
 tourSchema.pre(/^find/, function (next) {
-  this.find({ secretTour: { $ne: true } });
+  this.find({
+    secretTour: {
+      $ne: true
+    }
+  });
   this.start = Date.now();
   next();
 });
@@ -120,7 +128,13 @@ tourSchema.post(/^find/, function (docs, next) {
 // aggregation middleware
 
 tourSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  this.pipeline().unshift({
+    $match: {
+      secretTour: {
+        $ne: true
+      }
+    }
+  });
 
   console.log(this.pipeline());
   next();

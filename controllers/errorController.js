@@ -20,6 +20,10 @@ const sendErrorProd = (err, res) => {
       message: err.message,
     });
   } else {
+    // 1 log error
+
+    console.error("ERROR", err);
+
     res.status(500).json({
       status: "error",
       message: "Something went very wrong",

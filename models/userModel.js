@@ -4,6 +4,7 @@
  */
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 // name email, photo, password, cnfrim pass
 
 const userSchema = new mongoose.Schema({
@@ -36,6 +37,10 @@ const userSchema = new mongoose.Schema({
       message: "Password are not the same",
     },
   },
+});
+
+userSchema.pre("save", function (next) {
+  if (this.isModified("password")) return next();
 });
 
 const User = mongoose.model("User", userSchema);

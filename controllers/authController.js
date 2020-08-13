@@ -32,7 +32,7 @@ exports.login = (req, res, next) => {
 
   // 1) check if email and password exists
   if (!email || !password) {
-    next(new AppError("Please provide email and password"), 400);
+    return next(new AppError("Please provide email and password"), 400);
   }
 
   // 2) check if user exists && password is correct

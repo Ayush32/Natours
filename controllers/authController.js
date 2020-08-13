@@ -27,7 +27,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.login = (req, res, next) => {
+exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   // 1) check if email and password exists
@@ -36,6 +36,9 @@ exports.login = (req, res, next) => {
   }
 
   // 2) check if user exists && password is correct
+  const user = await User.findOne({ email: email }).select("+password");
+
+  console.log(user);
 
   // 3)if everything ok, send token to client
   const token = "";
@@ -43,4 +46,4 @@ exports.login = (req, res, next) => {
     status: "success",
     token,
   });
-};
+});

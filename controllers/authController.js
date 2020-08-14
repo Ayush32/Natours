@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
+const { decode } = require("punycode");
 
 const signToken = (id) => {
   return jwt.sign({ id: id }, process.env.JWT_SECRET, {
@@ -90,5 +91,12 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   // 4) check if user changed password after the token was issued
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError("User recently changed password! Please Login again!", 401)
+    );
+  }
+  // grant access to protect route
+  req.user = freshUser;
   next();
 });

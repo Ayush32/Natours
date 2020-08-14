@@ -7,6 +7,7 @@ const fs = require("fs");
 const tourController = require("./../controllers/tourController");
 const catchAsync = require("../utils/catchAsync");
 const router = express.Router();
+const authController = require("./../controllers/authController");
 
 // router.param('id', tourController.checkId);
 
@@ -19,7 +20,7 @@ router.route("/monthly-plan/:year").get(tourController.getMonthlyPlan);
 
 router
   .route("/")
-  .get(tourController.getAllTours)
+  .get(authController.protect, tourController.getAllTours)
   .post(tourController.createTour);
 
 router

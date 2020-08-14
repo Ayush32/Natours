@@ -2,6 +2,7 @@
  *   Copyright (c) 2020
  *   All rights reserved.
  */
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
@@ -68,8 +69,15 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.headers.authorization.split(" ")[1];
   }
 
-  // 2)- verification token
+  if (!token) {
+    return next(
+      new AppError("You are not logge in! Please logged in to get access", 401)
+    );
+  }
 
+  // 2)- verification token
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  console.log(decoded);
   // 3) check if user still exists
 
   // 4) check if user changed password after the token was issued

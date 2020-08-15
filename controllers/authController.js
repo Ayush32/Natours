@@ -8,6 +8,7 @@ const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const sendEmail = require("./../utils/email");
+const crypto = require("crypto");
 const { decode } = require("punycode");
 
 const signToken = (id) => {
@@ -151,4 +152,16 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.resetPassword = (req, res, next) => {};
+exports.resetPassword = catchAsync(async(req, res, next) => {
+  // 1) Get user based on the token
+  const hashedToken = crypto
+    .create("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+    const user =  await User.findOne({PasswordResetToken: hashedToken )
+
+  // 2) if token has not expired and there is user set the password
+  // 3) update changePASSWORDAt property to the user
+  // 4) Log the user in, send JWT
+});

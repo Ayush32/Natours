@@ -143,7 +143,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       message: "Token sent to email",
     });
   } catch (err) {
-    user.PasswordResetToken = undefined;
+    user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save({ validateBeforeSave: false });
     return next(
@@ -152,16 +152,20 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.resetPassword = catchAsync(async(req, res, next) => {
+exports.resetPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on the token
   const hashedToken = crypto
     .create("sha256")
     .update(req.params.token)
     .digest("hex");
 
-    const user =  await User.findOne({PasswordResetToken: hashedToken )
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
 
   // 2) if token has not expired and there is user set the password
+
   // 3) update changePASSWORDAt property to the user
   // 4) Log the user in, send JWT
 });

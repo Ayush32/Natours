@@ -120,6 +120,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     return next(new AppError("There is no user with this email address", 404));
   }
   // 2) generate the random reset button
+  const resetToken = user.createPasswordResetToken();
+  await user.save();
 });
 
 exports.resetPassword = (req, res, next) => {};

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
+const sendEmail = require("./../utils/email");
 const { decode } = require("punycode");
 
 const signToken = (id) => {
@@ -122,6 +123,12 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 2) generate the random reset button
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
+
+  // 3) send it to the user email
+
+  const resetURL = `${req.protocol}://${req.get(
+    "host"
+  )}/api/v1/users/resetPassword/${resetToken}`;
 });
 
 exports.resetPassword = (req, res, next) => {};

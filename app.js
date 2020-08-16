@@ -9,6 +9,7 @@ const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 const { static } = require("express");
 const { Error } = require("mongoose");
 

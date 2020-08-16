@@ -100,18 +100,19 @@ const tourSchema = new mongoose.Schema(
       address: String,
       description: String,
     },
-    locations: {
+    locations: [
       {
         type: {
           type: String,
-          default: 'Point',
-          enum: ['Point']
+          default: "Point",
+          enum: ["Point"],
         },
         coordinates: [Number],
         address: String,
-        description: String
-      }
-    },
+        description: String,
+        day: Number,
+      },
+    ],
   },
 
   {

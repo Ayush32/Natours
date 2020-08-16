@@ -30,7 +30,8 @@ app.use("/api", limiter);
 
 // body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));
-// serving static files
+
+// serving static files XSS
 app.use(express.static(`${__dirname}/public`));
 
 // 1st middleware

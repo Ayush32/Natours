@@ -12,6 +12,7 @@ const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
+const hpp = require("hpp");
 const { static } = require("express");
 const { Error } = require("mongoose");
 
@@ -32,10 +33,15 @@ app.use("/api", limiter);
 
 // body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));
+
 //  data sanitize against NOSql quey injection
 app.use(mongoSanitize());
+
 // serving static files XSS
 app.use(xss());
+
+// Prevent parameter pollution
+// app.use(hpp());
 app.use(express.static(`${__dirname}/public`));
 
 // 1st middleware

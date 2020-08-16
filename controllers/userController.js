@@ -27,6 +27,7 @@ exports.getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
+// update the user
 exports.updateMe = catchAsync(async (req, res, next) => {
   // 1)- Create error if user POSTs password data
 
@@ -34,8 +35,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     return next(new AppError("This route is not for password updates.", 400));
   }
 
-  // 2)- update user document
+  // 2)
   const filterBody = filterObj(req.body, "name", "email");
+  // 2)- update user document
   const updateUser = await User.findByIdAndUpdate(req.user.id, filterBody, {
     new: true,
     runValidators: true,
@@ -43,8 +45,12 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
+    data: {
+      user: updateUser,
+    },
   });
 });
+
 exports.getUser = (req, res) => {
   res.status(500).json({
     status: "error",

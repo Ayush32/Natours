@@ -17,12 +17,13 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
+// api limiting for limit the request from the user only the 100 request will be send to the browser after its saying too many request
 const limiter = rateLimit({
   max: 100,
-  windowMs: 60 * 60* 1000
-})
-
+  windowMs: 60 * 60 * 1000,
+  message: "Too many request from this IP, please try again in an hour!",
+});
+app.use("/api", limiter);
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 

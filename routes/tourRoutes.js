@@ -6,8 +6,9 @@ const express = require("express");
 const fs = require("fs");
 const tourController = require("./../controllers/tourController");
 const catchAsync = require("../utils/catchAsync");
-const router = express.Router();
+const reviewController = require("./../controllers/reviewController");
 const authController = require("./../controllers/authController");
+const router = express.Router();
 
 // router.param('id', tourController.checkId);
 
@@ -31,6 +32,14 @@ router
     authController.protect,
     authController.restrictTo("admin", "lead-guide"),
     tourController.deleteTour
+  );
+
+router
+  .route("/:tourId/reviews")
+  .post(
+    authController.protect,
+    authController.restrictTo("user"),
+    reviewController.createReview
   );
 
 module.exports = router;

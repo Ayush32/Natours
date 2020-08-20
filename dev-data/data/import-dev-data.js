@@ -6,6 +6,8 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const Tour = require("./../../models/tourModel");
+const Review = require("./../../models/reviewModel");
+const User = require("./../../models/userModel");
 
 dotenv.config({ path: "./config.env" });
 
@@ -27,6 +29,8 @@ mongoose
 // Read the file
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, "utf-8"));
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, "utf-8"));
+const reviews = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, "utf-8"));
 
 // import data into the database
 

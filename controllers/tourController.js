@@ -56,7 +56,9 @@ exports.getAllTours = catchAsync(async (req, res) => {
     },
   });
 });
-exports.getTour = exports.createTour = factory.createOne(Tour);
+exports.getTour = factory.getOne(Tour, { path: "Reviews" });
+
+exports.createTour = factory.createOne(Tour);
 
 exports.updateTour = factory.updateOne(Tour);
 

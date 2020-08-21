@@ -87,12 +87,12 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/overview", (req, res) => {
+app.get("/overview", (req, res) => {
   res.status(200).render("overview", {
     title: "All Tours",
   });
 });
-app.use("/tour", (req, res) => {
+app.get("/tour", (req, res) => {
   res.status(200).render("tour", {
     title: "The Forest Hiker",
   });

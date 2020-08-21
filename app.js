@@ -2,6 +2,7 @@
  *   Copyright (c) 2020
  *   All rights reserved.
  */
+const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
@@ -19,6 +20,9 @@ const { static } = require("express");
 const { Error } = require("mongoose");
 
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 // 1) global middleware
 // set security HTTP headers
 app.use(helmet());
@@ -55,7 +59,8 @@ app.use(
     ],
   })
 );
-app.use(express.static(`${__dirname}/public`));
+// serving static files
+app.use(express.static(path.join(__dirname, "public")));
 
 // 1st middleware
 

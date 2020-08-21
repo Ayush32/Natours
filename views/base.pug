@@ -12,36 +12,14 @@ html(lang="en")
       
     body
         // Header
-        header.header
-            nav.nav.nav--tours
-                a.nav__el(href="#") All Tours
-            .header__logo
-                img(src="img/logo-white.png" alt="Natours logo")
-            nav.nav.nav--user
-                //- a.nav__el(href="#") My Bookings
-                //- a.nav__el(href="#")
-                //-     img.nav__user-img(src="img/iser.jpg", alt="User photo")
-                //-     span Ayush
-                button.nav__el Login In
-                button.nav__el.nav__el--cta Sign Up
-
+        include _header
+       
         // CONTENT
         section.overview
             h1= tour
         
         // Footer
 
-        footer.footer
-            .footer__logo
-                img(src="img/logo-green.png", alt="Natour logo", srcset="")
-            ul.footer__nav
-                li: a(href="#") About us
-                li: a(href="#") Download Apps
-                li: a(href="#") Become a guide
-                li: a(href="#") Careers
-                li: a(href="#") Contact
-            p.footer__copyright &copy: by Ayush Gupta. Feel Free to use this project for your own courses, EXCEPT producing your own courses or tutorials
-
-    
+       
         
 

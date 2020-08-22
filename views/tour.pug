@@ -1,5 +1,12 @@
 extends base
 
+mixin overviewBox(label, text, icon)
+    .overview-box__detail
+        svg.overview-box__icon
+            use(xlink:href=`/img/icons.svg#icon-${icon}`)
+        span.overview-box__label= label
+        span.overview-box__text= text
+
 block content
     section.section-header
         .header__hero
@@ -13,38 +20,30 @@ block content
                 .heading-box__detail
                     svg.heading-box__icon
                         use(xlink:href='/img/icons.svg#icon-clock')
-                    span.heading-box__text 10 days
+                    span.heading-box__text= `${tour.duration}days`
             .heading-box__detail
                     svg.heading-box__icon
                         use(xlink:href='/img/icons.svg#icon-map-pin')
-                    span.heading-box__text Las Vegas, USA
+                    span.heading-box__text= tour.startLocation.description
 
     section.section-description
         .overview-box
             div
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Quick facts
-                    .overview-box__detail
-                        svg.overview-box__icon
-                            use(xlink:href='/img/icons.svg#icon-calendar')
-                        span.overview-box__label Next date
-                        span.overview-box__text August 2021
-                    .overview-box__detail
-                        svg.overview-box__icon
-                            use(xlink:href='/img/icons.svg#icon-trending-up')
-                        span.overview-box__label Difficulty
-                        span.overview-box__text Medium
-                    .overview-box__detail
-                        svg.overview-box__icon
-                            use(xlink:href='/img/icons.svg#icon-user')
-                        span.overview-box__label Participants
-                        span.overview-box__text 10 people
-                    .overview-box__detail
-                        svg.overview-box__icon
-                            use(xlink:href='/img/icons.svg#icon-star')
-                        span.overview-box__label Rating
-                        span.overview-box__text 4.9 / 5
+                    
+                    - const date = tour.startDates[0].toString().substr(3,13)
+                    +overviewBox('Next date' , date , 'calendar')
+                    +overviewBox('Difficulty' , tour.difficulty , 'trending-up')
+                    +overviewBox('Participants' , `${tour.maxGroupSize} people` , 'user')
+                    +overviewBox('Rating' , `${tour.ratingsAverage} / 5 ` , 'star')
+                  
 
+
+
+
+
+                    
                 .overview-box__group
                     h2.heading-secondary.ma-bt-lg Your tour guides
                     .overview-box__detail

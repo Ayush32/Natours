@@ -73,9 +73,9 @@ block content
         .cta
             .cta__img.cta__img--logo
                 img(src='/img/logo-white.png', alt='Natours logo')
-            img.cta__img.cta__img--1(src='/img/tour-5-2.jpg', alt='')
-            img.cta__img.cta__img--2(src='/img/tour-5-1.jpg', alt='')
+            img.cta__img.cta__img--1(src=`/img/tours/${tour.images[1]}`, alt='Tour Picture')
+            img.cta__img.cta__img--2(src=`/img/tours/${tour.images[1]}`, alt='Tour Picture')
             .cta__content
                 h2.heading-secondary What are you waiting for?
-                p.cta__text 10 days. 1 adventure. Infinite memories. Make it yours t    oday!
+                p.cta__text= ` ${tour.duration} 1 adventure. Infinite memories. Make it yours today!`
                 button.btn.btn--green.span-all-rows Book tour now!

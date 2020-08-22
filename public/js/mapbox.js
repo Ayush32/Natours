@@ -13,6 +13,7 @@ mapboxgl.accessToken =
 var map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/ayush007/cke5chyyh20cy1aoxco85b3nb/draft",
+  scrollZoom: false,
   //   center: [-118.113491, 34.111745],
   //   zoom: 10,
   //   interactive: false,
@@ -33,9 +34,11 @@ locations.forEach((loc) => {
     .addTo(map);
 
   // add pop-up
-  new mapboxgl.Popup()
+  new mapboxgl.Popup({
+    offset: 30,
+  })
     .setLngLat(loc.coordinates)
-    .setHTML("<p>Day ${loc.day}: ${loc.description}</p>")
+    .setHTML(`<p>Day ${loc.day}: ${loc.description}</p>`)
     .addTo(map);
 
   bounds.extend(loc.coordinates);
@@ -44,7 +47,7 @@ locations.forEach((loc) => {
 map.fitBounds(bounds, {
   padding: {
     top: 200,
-    bottom: 200,
+    bottom: 150,
     left: 100,
     right: 100,
   },

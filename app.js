@@ -26,7 +26,11 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 // 1) global middleware
 // set security HTTP headers
-app.use(helmet());
+
+if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+}
+
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }

@@ -32,7 +32,20 @@ locations.forEach((loc) => {
     .setLngLat(loc.coordinates)
     .addTo(map);
 
+  // add pop-up
+  new mapboxgl.Popup()
+    .setLngLat(loc.coordinates)
+    .setHTML("<p>Day ${loc.day}: ${loc.description}</p>")
+    .addTo(map);
+
   bounds.extend(loc.coordinates);
 });
 
-map.fitBounds(bounds);
+map.fitBounds(bounds, {
+  padding: {
+    top: 200,
+    bottom: 200,
+    left: 100,
+    right: 100,
+  },
+});

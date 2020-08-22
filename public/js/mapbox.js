@@ -2,5 +2,5 @@
  *   Copyright (c) 2020
  *   All rights reserved.
  */
-
-console.log("hello");
+const locations = JSON.parse(document.getElementById("map").dataset.locations);
+console.log(locations);

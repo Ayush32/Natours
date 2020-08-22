@@ -3,7 +3,7 @@ extends base
 include _reviewCard
 
 block append head
-    script(src="/js/mapbox.js")
+    //- script(src="/js/mapbox.js")
 
 mixin overviewBox(label, text, icon)
     .overview-box__detail
@@ -62,7 +62,7 @@ block content
                     img.picture-box__img(src=`/img/tours/${img}`, alt=`The Park Camper Tour ${i + 1}`, class=`picture-box__img--${i + 1}` )
         
     section.section-map
-        #map
+        #map(data-locations=`${JSON.stringify(tour.locations)}`)
 
     section.section-reviews
         .reviews

@@ -18,8 +18,21 @@ var map = new mapboxgl.Map({
   //   interactive: false,
 });
 
-const bounds = new mapboxgl.LatLangBounds();
+const bounds = new mapboxgl.LngLatBounds();
 
-locations.forEach(loc => {
-    const el
-})
+locations.forEach((loc) => {
+  // create marker extend the mark bound
+  const el = document.createElement("div");
+  el.className = "marker";
+
+  new mapboxgl.Marker({
+    element: el,
+    anchor: "bottom",
+  })
+    .setLngLat(loc.coordinates)
+    .addTo(map);
+
+  bounds.extend(loc.coordinates);
+});
+
+map.fitBounds(bounds);

@@ -4,11 +4,11 @@ block content
     section.section-header
         .header__hero
             .header__hero-overlay &nbsp;
-            img.header__hero-img(src='/img/tour-5-cover.jpg', alt='Tour 5')
+            img.header__hero-img(src='/img/tours/`${tour.imageCover}`.jpg', alt=`${tour.name}`)
 
         .heading-box
             h1.heading-primary
-                span The Park Camper Tour
+                span= tour.name
             .heading-box__group
                 .heading-box__detail
                     svg.heading-box__icon
@@ -103,6 +103,6 @@ block content
             img.cta__img.cta__img--1(src='/img/tour-5-2.jpg', alt='')
             img.cta__img.cta__img--2(src='/img/tour-5-1.jpg', alt='')
             .cta__content
-                 h2.heading-secondary What are you waiting for?
+                h2.heading-secondary What are you waiting for?
                 p.cta__text 10 days. 1 adventure. Infinite memories. Make it yours t    oday!
                 button.btn.btn--green.span-all-rows Book tour now!

@@ -6,6 +6,8 @@ var _mapbox = require("./mapbox");
 
 var _login = require("./login");
 
+var _updateSettings = require("./updateSettings");
+
 var _alerts = require("./alerts");
 
 /*
@@ -14,7 +16,8 @@ var _alerts = require("./alerts");
  */
 var mapBox = document.getElementById("map");
 var loginForm = document.querySelector(".form--login");
-var logOutBtn = document.querySelector(".nav__el--logout"); // value
+var logOutBtn = document.querySelector(".nav__el--logout");
+var userDataForm = document.querySelector(".form-user-data"); // value
 // delegation
 
 if (mapBox) {
@@ -32,3 +35,12 @@ if (loginForm) {
 }
 
 if (logOutBtn) logOutBtn.addEventListener("click", _login.logout);
+if (userDataForm) userDataForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  (0, _updateSettings.updateSettings)({
+    name: name,
+    email: email
+  }, "data");
+});

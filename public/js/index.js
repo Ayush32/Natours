@@ -42,11 +42,20 @@ if (userDataForm)
     updateSettings({ name, email }, "data");
   });
 if (userPasswordForm)
-  userDataForm.addEventListener("submit", (e) => {
+  userDataForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    document.querySelector("btn--save-password").textContent = "updating....";
     const passwordCurrent = document.getElementById("password-current").value;
     const password = document.getElementById("password").value;
     const passwordConfirm = document.getElementById("password-confirm").value;
 
-    updateSettings({ name, email }, "data");
+    await updateSettings(
+      { passwordCurrent, password, passwordConfirm },
+      "password"
+    );
+    document.querySelector(".btn--save-password").value = "save Password";
+
+    document.getElementById("password-current").value = " ";
+    document.getElementById("password-").value = " ";
+    document.getElementById("password-confirm").value = " ";
   });

@@ -21,6 +21,6 @@ export const updateSettings = async (data, type) => {
       console.log("success");
     }
   } catch (err) {
-    console.log("error");
+    console.log("error", err);
   }
 };

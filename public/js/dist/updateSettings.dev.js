@@ -42,7 +42,7 @@ var updateSettings = function updateSettings(data, type) {
         case 8:
           _context.prev = 8;
           _context.t0 = _context["catch"](0);
-          console.log("error");
+          console.log("error", _context.t0);
 
         case 11:
         case "end":

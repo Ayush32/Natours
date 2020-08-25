@@ -97,7 +97,10 @@ exports.updateUserData = catchAsync(function _callee3(req, res, next) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.next = 2;
-          return regeneratorRuntime.awrap(User.findByIdAndUpdate(req.user.id));
+          return regeneratorRuntime.awrap(User.findByIdAndUpdate(req.user.id, {
+            name: req.body.name,
+            email: req.boy.email
+          }));
 
         case 2:
           user = _context3.sent;

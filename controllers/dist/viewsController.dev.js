@@ -10,6 +10,10 @@ var catchAsync = require("../utils/catchAsync");
 
 var AppError = require("../utils/appError");
 
+var user = require("../models/userModel");
+
+var User = require("../models/userModel");
+
 exports.getOverview = catchAsync(function _callee(req, res) {
   var tours;
   return regeneratorRuntime.async(function _callee$(_context) {
@@ -85,3 +89,24 @@ exports.getAccount = function (req, res) {
     title: "Your Account"
   });
 };
+
+exports.updateUserData = catchAsync(function _callee3(req, res, next) {
+  var user;
+  return regeneratorRuntime.async(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.next = 2;
+          return regeneratorRuntime.awrap(User.findByIdAndUpdate(req.user.id));
+
+        case 2:
+          user = _context3.sent;
+          console.log("UPDATING USER", req.body);
+
+        case 4:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  });
+});

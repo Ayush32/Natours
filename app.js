@@ -18,7 +18,7 @@ const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const viewRouter = require("./routes/viewRoutes");
-const { static } = require("express");
+const { static, urlencoded } = require("express");
 const { Error } = require("mongoose");
 
 const app = express();
@@ -45,6 +45,7 @@ app.use("/api", limiter);
 
 // body parser, reading data from body into req.body
 app.use(express.json({ limit: "10kb" }));
+app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 app.use(cookieParser());
 

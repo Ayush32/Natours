@@ -10,8 +10,6 @@ var catchAsync = require("../utils/catchAsync");
 
 var AppError = require("../utils/appError");
 
-var user = require("../models/userModel");
-
 var User = require("../models/userModel");
 
 exports.getOverview = catchAsync(function _callee(req, res) {
@@ -91,7 +89,7 @@ exports.getAccount = function (req, res) {
 };
 
 exports.updateUserData = catchAsync(function _callee3(req, res, next) {
-  var user;
+  var updateUser;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -99,12 +97,18 @@ exports.updateUserData = catchAsync(function _callee3(req, res, next) {
           _context3.next = 2;
           return regeneratorRuntime.awrap(User.findByIdAndUpdate(req.user.id, {
             name: req.body.name,
-            email: req.boy.email
+            email: req.body.email
+          }, {
+            "new": true,
+            runValidators: true
           }));
 
         case 2:
-          user = _context3.sent;
-          console.log("UPDATING USER", req.body);
+          updateUser = _context3.sent;
+          res.status(200).render("account", {
+            title: "Your Account",
+            user: updateUser
+          });
 
         case 4:
         case "end":
